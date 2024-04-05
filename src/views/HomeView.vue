@@ -35,15 +35,44 @@ onMounted(async () => {
 
 <!-- Ce composant est associé à la route "/". Il affiche la liste des publications de l'utilisateur. Lorsque l'utilisateur clique sur l'un des liens "Éditer" associés à une publication, il est redirigé vers la route "/posts/:id" (voir fichier src/router/routes.js). -->
 <template>
-  <div>
-    <h1>Mes publications</h1>
 
-    <input type="text" id="playerInput" name="playerInput">
-    <br>
-    <select class="mt-3">
-      <option v-for="ship in ships" v-bind:key="ship.id"> {{ ship.name }}</option>
-    </select>
-    <!-- La libraire vue-loading-overlay a été installée dans ce projet avec npm. C'est une librairie qui facilite la mise en place d'un indicateur de chargement. Pour plus d'information sur son utilisation voir https://github.com/ankurk91/vue-loading-overlay. -->
-    <Loading :active="isLoading" />
+  <div class="container">
+    <h4 class="text-center">Votre objectif: Survivre à 5 missions en obtenant le plus de crédits galactiques.</h4>
+
+    <div class="col-4 mx-auto mt-5">
+
+      <div class="row">
+        <label>Nom du joueur :</label>
+        <input type="text" id="playerInput" name="playerInput">
+      </div>
+
+
+      <div class="row mt-3">
+        <label>Choix du vaisseau :</label>
+
+        <select>
+          <option v-for="ship in ships" v-bind:key="ship.id"> {{ ship.name }}</option>
+        </select>
+      </div>
+      <div class="row mt-3 text-center">
+        <RouterLink
+          :to="{
+            name: 'Score',
+            // On peut passer des props à la route. Ici, on passe l'id du post à éditer pour que le composant PostDetailView puisse récupérer la publication et l'afficher.
+            // Attention, l'autorisation de passer des paramètres à un composant doit être activé dans la déclaration de la route (voir la route PostDetailView dans le fichier routes.js).
+
+            //Zach :: Passer l'id du vaisseaux, mais il faut linker le choix de vaisseaux avec un variable dynamique
+            //params: { id: ship.id }
+          }"
+        >
+          <button>Combattre !</button>
+        </RouterLink>
+      </div>
+
+
+      <!-- La libraire vue-loading-overlay a été installée dans ce projet avec npm. C'est une librairie qui facilite la mise en place d'un indicateur de chargement. Pour plus d'information sur son utilisation voir https://github.com/ankurk91/vue-loading-overlay. -->
+      <Loading :active="isLoading" />
+    </div>
   </div>
+  
 </template>
