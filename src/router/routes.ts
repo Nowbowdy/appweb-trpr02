@@ -1,21 +1,28 @@
 import type { RouteRecordRaw } from 'vue-router'
-import PostsView from '../views/PostsView.vue'
+import HomeView from '../views/HomeView.vue'
 
 const routes: Array<RouteRecordRaw> = [
     {
       // Route par défaut
       // La route / est associé au composant PostsView. C'est ce composant qui est chargé quand l'utilisateur navigue vers la page principale de l'application.
       path: '/',
-      name: 'Posts',
-      component: PostsView
+      name: 'Accueil',
+      component: HomeView
     },
     {
       // Route de page "à propos"
       // Un import dynamique permet de charger un composant uniquement quand il est nécessaire. Si l'utilisateur n'a pas besoin de la page About, alors le composant AboutView ne sera pas chargé. Cela permet d'optimiser le temps de chargement de l'application.
-      path: '/about',
-      name: 'About',
-      component: () => import('../views/AboutView.vue')
+      path: '/score',
+      name: 'Score',
+      component: () => import('../views/ScoreView.vue')
     },
+
+
+
+
+
+
+
     {
       // Route qui affiche le détail d'un post identifié par son id.
       // Dans la propriété path, on peut utiliser un paramètre dynamique pour capturer une partie d'une chaîne de caractères de l'url et éventuellement utiliser sa valeur dans l'application. Par exemple, dans 'path: '/user/:id', le paramètre dynamique id sera égal à la partie de l'url qui suit /user/. Donc, si l'url est /user/123, alors le paramètre id sera égal à 123.

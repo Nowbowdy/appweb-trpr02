@@ -5,12 +5,12 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mx-auto ">
         <li class="nav-item">
-          <RouterLink class="nav-link" id="publications" to="/">Mes publications</RouterLink>
+          <RouterLink class="nav-link" id="publications" to="/">Accueil</RouterLink>
         </li>
-        <li class="nav-item">
-          <RouterLink class="nav-link" id="apropos" :to="{ name: 'About' }">À propos</RouterLink>
+        <li class="nav-item ms-5">
+          <RouterLink class="nav-link" id="apropos" :to="{ name: 'Score' }">Score</RouterLink>
         </li>
       </ul>
     </div>

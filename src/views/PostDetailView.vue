@@ -5,7 +5,7 @@ import { postsService } from '../services/postsService'
 import ConfirmModal from '../components/ConfirmModal.vue'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
-import type Post from '../scripts/post'
+import type Post from '../scripts/characteracter'
 
 const props = defineProps({
   id: String
