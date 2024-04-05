@@ -17,7 +17,7 @@ async function getShip (id : string) {
   return data
 }
 
-export const postsService = {
+export const shipsService = {
     getShips,
     getShip,
   

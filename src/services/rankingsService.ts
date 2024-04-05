@@ -17,7 +17,7 @@ async function getRanking (id : string) {
   return data
 }
 
-export const postsService = {
+export const rankingsService = {
     getRankings,
     getRanking,
   

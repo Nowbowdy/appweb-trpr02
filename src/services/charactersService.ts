@@ -17,7 +17,7 @@ async function getCharacter (id : string) {
   return data
 }
 
-export const postsService = {
+export const charactersService = {
     getCharacters,
     getCharacter,
   
