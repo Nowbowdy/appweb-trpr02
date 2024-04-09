@@ -1,21 +1,65 @@
 <!-- Ce composant est associé à la route "/about" (voir fichier src/router/index.ts). -->
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import { rankingsService } from '../services/rankingsService'
+import type Ranking from '../scripts/ranking'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
+import { useToast } from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
+
+const rankings = ref([] as Ranking[])
+const isLoading = ref(false)
+
+const orderedRankingsList = ref([] as Ranking[])
+
+//Méthode tiré d'ici : https://www.w3schools.com/js/js_array_sort.asp#mark_numeric
+function orderRankingListByScore(unorderedRankingList: Ranking[]) : Ranking[]{
+  return (unorderedRankingList.sort(function(a, b){return a.score - b.score})).reverse();
+}
+
+//onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
+onMounted(async () => {
+  isLoading.value = true
+
+  try 
+  {
+    rankings.value = await rankingsService.getRankings()
+    orderedRankingsList.value = orderRankingListByScore(rankings.value)
+
+  } 
+  catch (error) 
+  {
+    useToast().error(
+      `Erreur avec le service: ${(error as Error).message}. Est-ce que vous avez démarré le backend localement ?`,
+      { duration: 6000 }
+    )
+  } 
+  finally 
+  {
+    isLoading.value = false
+  }
+})
+</script>
+
 <template>
-  <div>
-    <h1>À propos - Lorem Ipsum</h1>
-    <p>
-      Praesent vel nunc diam. Quisque tellus felis, venenatis tincidunt
-      scelerisque sed, congue et sem. Maecenas scelerisque felis ut ante
-      maximus, nec imperdiet quam porttitor. Integer aliquet urna purus, id
-      faucibus leo efficitur ac. Maecenas porta dictum arcu, eget tempus est
-      aliquam eu. Donec feugiat ligula vel neque ultricies, eget iaculis lorem
-      tempor. Curabitur posuere lobortis auctor.
-    </p>
-    <p>
-      Nulla et dolor at lacus aliquet feugiat. Pellentesque egestas libero nunc,
-      eu fermentum turpis imperdiet vel. Morbi sodales justo ex, ac ultrices
-      elit semper vel. Maecenas gravida orci a diam rhoncus luctus. Donec
-      sagittis posuere lorem in feugiat. Cras tempor libero non eros ultricies
-      semper. Sed maximus lacus at eros congue, sit amet aliquam diam elementum.
-    </p>
+  <div class="container mt-5">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(ranking, index) in orderedRankingsList" v-bind:key="ranking.id"> 
+          <th scope="row">{{index + 1}}</th>
+          <td>{{ ranking.name }}</td>
+          <td>{{ ranking.score }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <Loading :active="isLoading" />
   </div>
 </template>
