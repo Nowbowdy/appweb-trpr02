@@ -10,6 +10,13 @@ import 'vue-toast-notification/dist/theme-sugar.css'
 const ships = ref([] as Ship[])
 const isLoading = ref(false)
 
+// https://www.nightprogrammer.com/vue-3/get-value-of-selected-option-from-select-dropdown-in-vue-3-example/
+const selectedValue = ref('')
+
+const onSelectChange = () => {
+  console.log(selectedValue.value)
+  //console.log(e.value)
+}
 
 //onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
 onMounted(async () => {
@@ -50,21 +57,23 @@ onMounted(async () => {
       <div class="row mt-3">
         <label>Choix du vaisseau :</label>
 
-        <select>
-          <option v-for="ship in ships" v-bind:key="ship.id"> {{ ship.name }}</option>
+        <!-- LA VALEUR (ID) S'ENVOIE DANS SelectedValue-->
+        <select name="player-ship-select" @change="onSelectChange()" v-model=selectedValue>
+          <option v-for="ship in ships" v-bind:key="ship.id" :value="ship.id"> {{ ship.name }}</option>
         </select>
       </div>
       <div class="row mt-3 text-center">
         <RouterLink
           :to="{
-            name: 'Score',
+            name: 'PostDetail',
             // On peut passer des props à la route. Ici, on passe l'id du post à éditer pour que le composant PostDetailView puisse récupérer la publication et l'afficher.
             // Attention, l'autorisation de passer des paramètres à un composant doit être activé dans la déclaration de la route (voir la route PostDetailView dans le fichier routes.js).
 
-            //Zach :: Passer l'id du vaisseaux, mais il faut linker le choix de vaisseaux avec un variable dynamique
-            //params: { id: ship.id }
+            params: { id: 0 }
+
           }"
         >
+        <!--Venir emit la valeur ici-->
           <button>Combattre !</button>
         </RouterLink>
       </div>
