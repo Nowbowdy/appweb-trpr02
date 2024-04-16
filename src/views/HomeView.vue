@@ -11,12 +11,8 @@ const ships = ref([] as Ship[])
 const isLoading = ref(false)
 
 // https://www.nightprogrammer.com/vue-3/get-value-of-selected-option-from-select-dropdown-in-vue-3-example/
-const selectedValue = ref('')
-
-const onSelectChange = () => {
-  console.log(selectedValue.value)
-  //console.log(e.value)
-}
+const shipID = ref(0)
+const playerName = ref('')
 
 //onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
 onMounted(async () => {
@@ -50,27 +46,27 @@ onMounted(async () => {
 
       <div class="row">
         <label>Nom du joueur :</label>
-        <input type="text" id="playerInput" name="playerInput">
+        <input type="text" id="playerInput" name="playerInput" v-model="playerName">
       </div>
 
 
       <div class="row mt-3">
         <label>Choix du vaisseau :</label>
 
-        <!-- LA VALEUR (ID) S'ENVOIE DANS SelectedValue-->
-        <select name="player-ship-select" @change="onSelectChange()" v-model=selectedValue>
+        <select name="player-ship-select" id="player-ship-select" v-model="shipID">
           <option v-for="ship in ships" v-bind:key="ship.id" :value="ship.id"> {{ ship.name }}</option>
         </select>
       </div>
       <div class="row mt-3 text-center">
         <RouterLink
           :to="{
-            name: 'PostDetail',
+            name: 'Game',
             // On peut passer des props à la route. Ici, on passe l'id du post à éditer pour que le composant PostDetailView puisse récupérer la publication et l'afficher.
             // Attention, l'autorisation de passer des paramètres à un composant doit être activé dans la déclaration de la route (voir la route PostDetailView dans le fichier routes.js).
 
-            params: { id: 0 }
-
+            //Zach :: Passer l'id du vaisseaux, mais il faut linker le choix de vaisseaux avec un variable dynamique
+            //Mik : C'est fait
+            params: { id: shipID }
           }"
         >
         <!--Venir emit la valeur ici-->
