@@ -8,12 +8,12 @@ import axios from 'axios'
 const API_URL = 'http://127.0.0.1:3000'
 
 async function getRankings () {
-  const { data } = await axios.get(`${API_URL}/characters`)
+  const { data } = await axios.get(`${API_URL}/ranking`)
   return data
 }
 
 async function getRanking (id : string) {
-  const { data } = await axios.get(`${API_URL}/characters/${id}`)
+  const { data } = await axios.get(`${API_URL}/ranking/${id}`)
   return data
 }
 
