@@ -4,8 +4,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <span>:)</span>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto ">
         <li class="nav-item">

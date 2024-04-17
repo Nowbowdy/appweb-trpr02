@@ -5,21 +5,19 @@ layout: home
 hero:
   name: "TP2 - Revue de Code"
   text: "Site pour la revue de code à chaque semaine."
-  tagline: My great project tagline
+  tagline: Revue de la semaine 1
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Mikaël Charette
+      link: /mikael-charette
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Zachary Vandermeerschen
+      link: /zachary-vandermeerschen
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Mikaël Charette
+    details: Revue de code de la semaine 1
+  - title: Zachary Vandermeerschen
+    details: Revue de code de la semaine 1
 ---
 
