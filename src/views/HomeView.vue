@@ -7,12 +7,10 @@ import 'vue-loading-overlay/dist/css/index.css'
 import { useToast } from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
 
+import PlayerForm from '../components/PlayerForm.vue'
+
 const ships = ref([] as Ship[])
 const isLoading = ref(false)
-
-// https://www.nightprogrammer.com/vue-3/get-value-of-selected-option-from-select-dropdown-in-vue-3-example/
-const shipID = ref(0)
-const playerName = ref('')
 
 //onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
 onMounted(async () => {
@@ -34,50 +32,14 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
+
+
+
 </script>
 
 <!-- Ce composant est associé à la route "/". Il affiche la liste des publications de l'utilisateur. Lorsque l'utilisateur clique sur l'un des liens "Éditer" associés à une publication, il est redirigé vers la route "/posts/:id" (voir fichier src/router/routes.js). -->
 <template>
+  <PlayerForm :ships="ships" />
 
-  <div class="container">
-    <h4 class="text-center">Votre objectif: Survivre à 5 missions en obtenant le plus de crédits galactiques.</h4>
-
-    <div class="col-4 mx-auto mt-5">
-
-      <div class="row">
-        <label>Nom du joueur :</label>
-        <input type="text" id="playerInput" name="playerInput" v-model="playerName">
-      </div>
-
-
-      <div class="row mt-3">
-        <label>Choix du vaisseau :</label>
-
-        <select name="player-ship-select" id="player-ship-select" v-model="shipID">
-          <option v-for="ship in ships" v-bind:key="ship.id" :value="ship.id"> {{ ship.name }}</option>
-        </select>
-      </div>
-      <div class="row mt-3 text-center">
-        <RouterLink
-          :to="{
-            name: 'Game',
-            // On peut passer des props à la route. Ici, on passe l'id du post à éditer pour que le composant PostDetailView puisse récupérer la publication et l'afficher.
-            // Attention, l'autorisation de passer des paramètres à un composant doit être activé dans la déclaration de la route (voir la route PostDetailView dans le fichier routes.js).
-
-            //Zach :: Passer l'id du vaisseaux, mais il faut linker le choix de vaisseaux avec un variable dynamique
-            //Mik : C'est fait
-            params: { id: shipID }
-          }"
-        >
-        <!--Venir emit la valeur ici-->
-          <button>Combattre !</button>
-        </RouterLink>
-      </div>
-
-
-      <!-- La libraire vue-loading-overlay a été installée dans ce projet avec npm. C'est une librairie qui facilite la mise en place d'un indicateur de chargement. Pour plus d'information sur son utilisation voir https://github.com/ankurk91/vue-loading-overlay. -->
-      <Loading :active="isLoading" />
-    </div>
-  </div>
-  
+  <Loading :active="isLoading" />
 </template>

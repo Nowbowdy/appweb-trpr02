@@ -14,7 +14,7 @@ const props = defineProps({
   id: String
 })
 
-const post = ref([] as unknown as CharacterShip)
+const player = ref([] as unknown as CharacterShip)
 const isLoading = ref(false)
 
 // Mik: On va sûrement les utilisé plus tard donc je les laisse là.
@@ -43,7 +43,7 @@ onMounted(async () => {
   isLoading.value = true
   try {
     const retrievedShips = await charactersService.getCharacters()
-    post.value = chooseOneOfManyShips(retrievedShips, parseInt(props.id!))
+    player.value = chooseOneOfManyShips(retrievedShips, parseInt(props.id!))
   } catch (error) {
     console.error('Erreur avec le service: ', (error as any).message)
   } finally {
@@ -54,6 +54,63 @@ onMounted(async () => {
 
 <template>
   <div>
+
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Informations partie</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Informations joueur</h5>
+              <p class="card-text" >{{ player.name }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Informations ennemi</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Actions partie</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
     <h1>Game View</h1>
     <form class="row g-3">
       <label for="title-input">ID du vaisseau</label>
@@ -61,7 +118,7 @@ onMounted(async () => {
         type="number"
         id="ship-id"
         class="form-control"
-        v-model="post.id"
+        v-model="player.id"
       />
 
       <label for="title-input">Nom du vaisseau</label>
@@ -69,7 +126,7 @@ onMounted(async () => {
         type="text"
         id="ship-name"
         class="form-control"
-        v-model="post.name"
+        v-model="player.name"
       />
 
       <label for="title-input">Vitalité du vaisseau</label>
@@ -77,7 +134,7 @@ onMounted(async () => {
         type="number"
         id="ship-vitality"
         class="form-control"
-        v-model="post.vitality"
+        v-model="player.vitality"
       />
     </form>
   </div>

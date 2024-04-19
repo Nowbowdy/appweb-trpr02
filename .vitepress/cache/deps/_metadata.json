@@ -1,0 +1,73 @@
+{
+  "hash": "0d50c5df",
+  "configHash": "4926bcc6",
+  "lockfileHash": "9870d4bf",
+  "browserHash": "f3d45dc9",
+  "optimized": {
+    "vue": {
+      "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "75f3e1f2",
+      "needsInterop": false
+    },
+    "vitepress > @vue/devtools-api": {
+      "src": "../../../node_modules/vitepress/node_modules/@vue/devtools-api/dist/index.js",
+      "file": "vitepress___@vue_devtools-api.js",
+      "fileHash": "99cd1818",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/core": {
+      "src": "../../../node_modules/@vueuse/core/index.mjs",
+      "file": "vitepress___@vueuse_core.js",
+      "fileHash": "447b0857",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "f8c0e385",
+      "needsInterop": false
+    },
+    "bootstrap": {
+      "src": "../../../node_modules/bootstrap/dist/js/bootstrap.esm.js",
+      "file": "bootstrap.js",
+      "fileHash": "08aea16c",
+      "needsInterop": false
+    },
+    "vue-loading-overlay": {
+      "src": "../../../node_modules/vue-loading-overlay/dist/index.js",
+      "file": "vue-loading-overlay.js",
+      "fileHash": "e058dcef",
+      "needsInterop": true
+    },
+    "vue-router": {
+      "src": "../../../node_modules/vue-router/dist/vue-router.mjs",
+      "file": "vue-router.js",
+      "fileHash": "2e93d549",
+      "needsInterop": false
+    },
+    "vue-toast-notification": {
+      "src": "../../../node_modules/vue-toast-notification/dist/index.js",
+      "file": "vue-toast-notification.js",
+      "fileHash": "318c42f4",
+      "needsInterop": true
+    },
+    "@theme/index": {
+      "src": "../../../node_modules/vitepress/dist/client/theme-default/index.js",
+      "file": "@theme_index.js",
+      "fileHash": "ec63ddc2",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-JSBCNRWS": {
+      "file": "chunk-JSBCNRWS.js"
+    },
+    "chunk-D3RO7MMV": {
+      "file": "chunk-D3RO7MMV.js"
+    },
+    "chunk-NIBQISYW": {
+      "file": "chunk-NIBQISYW.js"
+    }
+  }
+}

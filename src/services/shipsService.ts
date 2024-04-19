@@ -9,6 +9,7 @@ const API_URL = 'http://127.0.0.1:3000'
 
 async function getShips () {
   const { data } = await axios.get(`${API_URL}/ships`)
+  console.log(data)
   return data
 }
 
