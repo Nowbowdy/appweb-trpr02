@@ -1,24 +1,26 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { shipsService } from '../services/shipsService'
-import type Ship from '../scripts/ship'
+import { useToast } from 'vue-toast-notification'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
-import { useToast } from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
+import type Ship from '../scripts/ship'
+import { rng, setDefaultValue } from '@/scripts/utility'
 
 import PlayerForm from '../components/PlayerForm.vue'
-
-const ships = ref([] as Ship[])
 const isLoading = ref(false)
+const ships = ref([] as Ship[])
+const fetchedPlayerName = ref('')
+const fetchedShipName = ref('')
 
-//onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
 onMounted(async () => {
   isLoading.value = true
-
-  try 
+  try
   {
-    ships.value = await shipsService.getShips()
+    ships.value = await shipsService.getShips();
+    fetchedPlayerName.value = "";
+    fetchedShipName.value = ships.value[rng(0, ships.value.length)].name;
   } 
   catch (error) 
   {
@@ -32,8 +34,6 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
-
-
 
 </script>
 
