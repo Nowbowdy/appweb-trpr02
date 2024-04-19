@@ -60,6 +60,6 @@ onMounted(async () => {
         </tr>
       </tbody>
     </table>
-    <Loading :active="isLoading" />
   </div>
+  <Loading :active="isLoading" />
 </template>

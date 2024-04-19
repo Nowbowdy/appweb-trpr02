@@ -58,6 +58,63 @@ onMounted(async () => {
 
 <template>
   <div>
+
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Informations partie</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Informations joueur</h5>
+              <p class="card-text" >{{ player.name }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Informations ennemi</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Actions partie</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
     <h1>Game View</h1>
     <form class="row g-3">
       <label for="player-name">Nom du joueur</label>
