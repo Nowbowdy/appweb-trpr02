@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
       // Route qui affiche le détail d'un post identifié par son id.
       // Dans la propriété path, on peut utiliser un paramètre dynamique pour capturer une partie d'une chaîne de caractères de l'url et éventuellement utiliser sa valeur dans l'application. Par exemple, dans 'path: '/user/:id', le paramètre dynamique id sera égal à la partie de l'url qui suit /user/. Donc, si l'url est /user/123, alors le paramètre id sera égal à 123.
       // La propriété props définie à vrai autorise le passage de paramètres au composant associé à la route. On autorise donc ici le passage du paramètre id au composant PostDetailView.
-      path: '/game/:id',
+      path: '/game/:playerName/:shipName/',
       name: 'Game',
       component: () => import('../views/GameView.vue'),
       props: true
