@@ -79,7 +79,7 @@ onMounted(async () => {
           <div class="card text-center">
             <div class="card-body">
               <h5 class="card-title">Informations joueur</h5>
-              <p class="card-text" >{{ player.name }}</p>
+              <p class="card-text" >{{ fetchedPlayerName }}</p>
             </div>
           </div>
         </div>
