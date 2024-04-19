@@ -7,14 +7,18 @@ import ConfirmModal from '../components/ConfirmModal.vue'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import type Character from '../scripts/character'
-import type Ship from '../scripts/ship'
 import type CharacterShip from '../scripts/characterShip'
+import { rng } from '../scripts/utility'
+
+const STARTING_SHIP_VITALITY = 100;
 
 const props = defineProps({
-  id: String
+  playerName: String,
+  shipName: String
 })
 
-const post = ref([] as unknown as CharacterShip)
+const fetchedPlayerName = ref('')
+const fetchedPlayerShip = ref([] as unknown as CharacterShip)
 const isLoading = ref(false)
 
 // Mik: On va sûrement les utilisé plus tard donc je les laisse là.
@@ -29,21 +33,21 @@ const router = useRouter()
  * 
  * @returns Un des vaiseau trouvé.
  */
-function chooseOneOfManyShips(characters:Array<Character>, id:number): CharacterShip {
-  // Le "any" est pour ne pas avoir d'erreur TypeScript.
-  let charWithShip:Array<any> = characters.filter((data) => data.ship.id === id);
-  return charWithShip[rng(0,charWithShip.length)].ship;
-}
-
-function rng(min:number, max:number){
-  return Math.floor(Math.random() * (max - min)) + min;
+function getShipBasedOnName(characters:Array<Character>, name:string): CharacterShip {
+  const character = characters.filter((data) => data.ship.name === name)[0];
+  return {
+    id: character.ship.id,
+    name: character.ship.name,
+    vitality: STARTING_SHIP_VITALITY
+  }
 }
 
 onMounted(async () => {
   isLoading.value = true
   try {
     const retrievedShips = await charactersService.getCharacters()
-    post.value = chooseOneOfManyShips(retrievedShips, parseInt(props.id!))
+    fetchedPlayerName.value = props.playerName!
+    fetchedPlayerShip.value = getShipBasedOnName(retrievedShips, props.shipName!)
   } catch (error) {
     console.error('Erreur avec le service: ', (error as any).message)
   } finally {
@@ -56,28 +60,36 @@ onMounted(async () => {
   <div>
     <h1>Game View</h1>
     <form class="row g-3">
-      <label for="title-input">ID du vaisseau</label>
+      <label for="player-name">Nom du joueur</label>
+      <input
+        type="text"
+        id="player-name"
+        class="form-control"
+        v-model="fetchedPlayerName"
+      />
+
+      <label for="ship-id">ID du vaisseau</label>
       <input
         type="number"
         id="ship-id"
         class="form-control"
-        v-model="post.id"
+        v-model="fetchedPlayerShip.id"
       />
 
-      <label for="title-input">Nom du vaisseau</label>
+      <label for="ship-name">Nom du vaisseau</label>
       <input
         type="text"
         id="ship-name"
         class="form-control"
-        v-model="post.name"
+        v-model="fetchedPlayerShip.name"
       />
 
-      <label for="title-input">Vitalité du vaisseau</label>
+      <label for="ship-vitality">Vitalité du vaisseau</label>
       <input
         type="number"
         id="ship-vitality"
         class="form-control"
-        v-model="post.vitality"
+        v-model="fetchedPlayerShip.vitality"
       />
     </form>
   </div>
