@@ -12,7 +12,6 @@ import PlayerForm from '../components/PlayerForm.vue'
 const ships = ref([] as Ship[])
 const isLoading = ref(false)
 
-//onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
 onMounted(async () => {
   isLoading.value = true
 
@@ -32,12 +31,10 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
-
-
-
 </script>
 
-<!-- Ce composant est associé à la route "/". Il affiche la liste des publications de l'utilisateur. Lorsque l'utilisateur clique sur l'un des liens "Éditer" associés à une publication, il est redirigé vers la route "/posts/:id" (voir fichier src/router/routes.js). -->
+
+
 <template>
   <PlayerForm :ships="ships" />
 
