@@ -1,46 +1,28 @@
-# Revue de code du TP2 de Zachary Vandermeerschen pour la semaine 1
+# Revue de code du TP2 de Zachary Vandermeerschen pour la semaine 2
 
 Par Mikaël Charette
 
-## **ScoreView.vue**
-Bon nommage de fonction, les noms des variables sont clairs et c'est un 'one ligner'.
-```ts
-//Méthode tiré d'ici : https://www.w3schools.com/js/js_array_sort.asp#mark_numeric
-function orderRankingListByScore(unorderedRankingList: Ranking[]) : Ranking[]{
-  return (unorderedRankingList.sort(function(a, b){return a.score - b.score})).reverse();
-}
-```
-\
-Bonne utilisation de Bootstrap. Quand il m'a montré à quoi ça ressemblais en classe, j'ai été étonné de la qualité de l'interface. Bonne idée aussi d'avoir utilisé 'v-for' pour peupler le tableau.
+## **HomeView.vue**
+Zac s'est occupée de diviser l'application en components.
 ```html
-  <div class="container mt-5">
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(ranking, index) in orderedRankingsList" v-bind:key="ranking.id"> 
-          <th scope="row">{{index + 1}}</th>
-          <td>{{ ranking.name }}</td>
-          <td>{{ ranking.score }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <Loading :active="isLoading" />
-  </div>
+<template>
+  <PlayerForm :ships="ships" />
+
+  <Loading :active="isLoading" />
+</template>
 ```
 ## Conclusion
-Pas grand choses à dire pour cette semaine.
+Ce fut une semaine avec beaucoup de maintenance.
 \
 \
-Très satisfait de ce qu'il a fait. C'est lui qui a créé le repository. 
+Zac fut malade pendant une bonne partie de la semaine. Pendant son absence, je me suis occupé de faire le ménage dans GitHub parce qu'il y avait beaucoup de choses qui n'était pas au bon endroit et j'ai remarqué un peu trop tard qu'il fallait qu'on publie notre doc sur GitHub. Donc j'ai fais ça.
 \
 \
-Je sais qu'avec notre travail combiné nous avons une application qui marche mais nous devons maintenant codé la logique de jeu. Donc je m'attend à ce qu'il y ai beaucoup plus de commentaire la semaine prochaine.
+Mais quand il fut là, il a vraiment bien travaillé. Lui comme moi avions beaucoup de bug a gérer.
+En plus de subdiviser l'application un peu trop tard en développement fait qu'on a pas l'impression d'avoir avancé beaucoup cette semaine. Je peux te dire que nous en apprenons beaucoup sur GitHub en ce moment dans nos cours et on deviens de plus en plus habile avec.
+\
+\
+Sur ce, bonne dernière semaine de développement à nous 😉
 \
 \
 🎉🎉🎉
