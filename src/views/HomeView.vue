@@ -40,7 +40,7 @@ onMounted(async () => {
 
 <!-- Ce composant est associé à la route "/". Il affiche la liste des publications de l'utilisateur. Lorsque l'utilisateur clique sur l'un des liens "Éditer" associés à une publication, il est redirigé vers la route "/posts/:id" (voir fichier src/router/routes.js). -->
 <template>
-  <PlayerForm :ships="ships" :initialShipName="initialShipName" />
+  <PlayerForm :ships="ships" />
 
   <Loading :active="isLoading" />
 </template>
