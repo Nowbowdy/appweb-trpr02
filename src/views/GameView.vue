@@ -10,6 +10,12 @@ import type Character from '../scripts/character'
 import type CharacterShip from '../scripts/characterShip'
 import { rng } from '../scripts/utility'
 
+import GameInformations from '../components/GameInformations.vue'
+import EnemyInformations from '../components/EnemyInformations.vue'
+import PlayerInformations from '../components/PlayerInformations.vue'
+import GameActions from '../components/GameActions.vue'
+
+
 const STARTING_SHIP_VITALITY = 100;
 
 const props = defineProps({
@@ -25,29 +31,13 @@ const isLoading = ref(false)
 const triggerModal = ref(0)
 const router = useRouter()
 
-/**
- * Renvoie un des vaiseaux trouvé pendant la recherche.
- * 
- * @param characters Les characters qui ont le vaiseau que l'on cherche.
- * @param id         L'id pour trouver le vaisseau.
- * 
- * @returns Un des vaiseau trouvé.
- */
-function getShipBasedOnName(characters:Array<Character>, name:string): CharacterShip {
-  const character = characters.filter((data) => data.ship.name === name)[0];
-  return {
-    id: character.ship.id,
-    name: character.ship.name,
-    vitality: STARTING_SHIP_VITALITY
-  }
-}
+
 
 onMounted(async () => {
   isLoading.value = true
   try {
     const retrievedShips = await charactersService.getCharacters()
     fetchedPlayerName.value = props.playerName!
-    fetchedPlayerShip.value = getShipBasedOnName(retrievedShips, props.shipName!)
   } catch (error) {
     console.error('Erreur avec le service: ', (error as any).message)
   } finally {
@@ -57,99 +47,19 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+    <div class="container mt-5">
 
+      <GameInformations />
 
+      <div class="row mt-3">
+        <PlayerInformations :playerName="props.playerName" />
 
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Informations partie</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            </div>
-          </div>
-        </div>
+        <EnemyInformations />
       </div>
 
+      <GameActions />
 
-      <div class="row">
-        <div class="col-6">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Informations joueur</h5>
-              <p class="card-text" >{{ fetchedPlayerName }}</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-6">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Informations ennemi</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-12">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Actions partie</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-
-
-
-
-
-
-
-
-
-    <h1>Game View</h1>
-    <form class="row g-3">
-      <label for="player-name">Nom du joueur</label>
-      <input
-        type="text"
-        id="player-name"
-        class="form-control"
-        v-model="fetchedPlayerName"
-      />
-
-      <label for="ship-id">ID du vaisseau</label>
-      <input
-        type="number"
-        id="ship-id"
-        class="form-control"
-        v-model="fetchedPlayerShip.id"
-      />
-
-      <label for="ship-name">Nom du vaisseau</label>
-      <input
-        type="text"
-        id="ship-name"
-        class="form-control"
-        v-model="fetchedPlayerShip.name"
-      />
-
-      <label for="ship-vitality">Vitalité du vaisseau</label>
-      <input
-        type="number"
-        id="ship-vitality"
-        class="form-control"
-        v-model="fetchedPlayerShip.vitality"
-      />
-    </form>
-  </div>
 </template>
 
 <style scoped></style>

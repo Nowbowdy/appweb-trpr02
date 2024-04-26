@@ -9,9 +9,11 @@ const props = defineProps({
   ships: Array as () => Ship[]
 })
 
-const shipID = ref(0)
+const shipName = ref('')
 const playerName = ref('')
 
+
+  
 </script>
 
 <template>
@@ -28,23 +30,22 @@ const playerName = ref('')
 
       <div class="row mt-3">
         <label>Choix du vaisseau :</label>
-        <select name="player-ship-select" id="player-ship-select" v-model="shipID">
-          <option v-for="ship in ships" v-bind:key="ship.id" :value="ship.id"> {{ ship.name }}</option>
+        <select name="player-ship-select" id="player-ship-select" v-model="shipName">
+          <option v-for="ship in ships" v-bind:key="ship.name" :value="ship.name"> {{ ship.name }}</option>
         </select>
       </div>
 
       <div class="mt-3 text-center">
         <RouterLink
+          v-if="shipName && playerName"
           :to="{
             name: 'Game',
-            //Zach :: Passer l'id du vaisseaux, mais il faut linker le choix de vaisseaux avec un variable dynamique
-            //Mik : C'est fait
-            params: { id: shipID }
+            params: { playerName: playerName, shipName: shipName }
           }"
         >
-        <!--Venir emit la valeur ici-->
-          <button>Combattre !</button>
+        <button>Combattre !</button>
         </RouterLink>
+
       </div>
     </div>
   </div>
