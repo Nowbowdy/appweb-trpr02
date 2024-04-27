@@ -14,16 +14,21 @@ import GameInformations from '../components/GameInformations.vue'
 import EnemyInformations from '../components/EnemyInformations.vue'
 import PlayerInformations from '../components/PlayerInformations.vue'
 import GameActions from '../components/GameActions.vue'
+import type Player from '../scripts/player'
+import type PlayerShip from '../scripts/playerShip'
 
 
-const STARTING_SHIP_VITALITY = 100;
+let myPlayer = ref<Player>()
+let myShip: PlayerShip
+const DEFAULT_SHIP_VITALITY: number = 100;
+const DEFAULT_PLAYER_EXPERIENCE: String = "Maitre"
 
 const props = defineProps({
   playerName: String,
   shipName: String
 })
 
-const fetchedPlayerName = ref('')
+const fetchedPlayerName = ref<string>('')
 const fetchedPlayerShip = ref([] as unknown as CharacterShip)
 const isLoading = ref(false)
 
@@ -32,11 +37,40 @@ const triggerModal = ref(0)
 const router = useRouter()
 
 
+function createPlayerShipObject()
+{
+  myShip = {
+    shipName: props.shipName!,
+    vitality: DEFAULT_SHIP_VITALITY
+  }
+}
+
+function createPlayerObject()
+{
+  isLoading.value = true;
+
+  myPlayer.value = {
+    name: props.playerName!,
+    experience: DEFAULT_PLAYER_EXPERIENCE,
+    score: 0,
+    ship: myShip
+
+  }
+  isLoading.value = false;
+
+}
 
 onMounted(async () => {
   isLoading.value = true
   try {
     const retrievedShips = await charactersService.getCharacters()
+
+    //Création du vaisseau du joueur (nom + vitalité)
+    createPlayerShipObject()
+
+    //Création du joueur (nom + xp + score + vaisseau créé en haut)
+    createPlayerObject()
+
     fetchedPlayerName.value = props.playerName!
   } catch (error) {
     console.error('Erreur avec le service: ', (error as any).message)
@@ -51,14 +85,16 @@ onMounted(async () => {
 
       <GameInformations />
 
-      <div class="row mt-3">
-        <PlayerInformations :playerName="props.playerName" />
+      <div class="row mt-3" v-if="myPlayer">
+        <PlayerInformations :player="myPlayer!" />
 
         <EnemyInformations />
       </div>
+      <div class="row mt-3" v-else>
+        <Loading :active="isLoading" />
+      </div>
 
       <GameActions />
-
     </div>
 </template>
 

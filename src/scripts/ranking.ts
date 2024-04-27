@@ -1,5 +1,5 @@
 export default interface Ranking {
     readonly id: number;
-    readonly name: string;
+    readonly name: String;
     readonly score: number;
 }  
