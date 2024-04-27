@@ -19,6 +19,6 @@ export function rng(min: number, max: number): number {
  * @returns The chosen value.
  */
 export function setDefaultValue(text:string, defaultValue:string): string {
-    if(text.length === 0) return defaultValue;
+    if(text === null || text === undefined || text.length === 0) return defaultValue;
     return text;
 }
