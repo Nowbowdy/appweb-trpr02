@@ -1,0 +1,23 @@
+<script setup lang="ts">
+
+</script>
+
+
+
+<template>
+
+    <div class="col-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Informations ennemi</h5>
+                <p class="card-text">0</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

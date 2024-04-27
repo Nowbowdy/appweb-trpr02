@@ -69,6 +69,7 @@ onMounted(async () => {
         <!--Venir emit la valeur ici-->
           <button class="btn btn-outline-dark">Combattre !</button>
         </RouterLink>
+
       </div>
     </div>
   </div>
