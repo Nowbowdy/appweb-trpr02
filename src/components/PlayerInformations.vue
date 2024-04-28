@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type  Player  from '../scripts/player';
 
-const props = defineProps({
-  playerName: String,
 
-})
+const props = defineProps<{
+  player: Player
+}>();
 
 </script>
 
@@ -14,11 +15,12 @@ const props = defineProps({
     <div class="col-6">
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">Informations joueur</h5>
-                <p class="card-text" >{{ props.playerName }}</p>
+                <h5 class="card-title">{{ props.player.experience }} {{ props.player.name }}</h5>
+                <p class="card-text" >{{ props.player.ship.shipName }} - {{ props.player.score }} GC</p>
+
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                        
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%">
+                        {{ props.player.ship.vitality }}%
                     </div>
                 </div>
             </div>
