@@ -8,7 +8,8 @@ const props = defineProps({
   title: String,
   body: String,
   cancelButton: String,
-  confirmButton: String
+  confirmButton: String,
+  display: String
 })
 
 // Définir les événements émis par ce composant
@@ -77,6 +78,7 @@ const confirm = () => {
             type="button"
             data-bs-dismiss="modal"
             class="btn btn-secondary"
+            :style="{ display: props.display }"
           >
             {{ cancelButton }}
           </button>

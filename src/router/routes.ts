@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
       // Route par défaut
       // La route / est associé au composant PostsView. C'est ce composant qui est chargé quand l'utilisateur navigue vers la page principale de l'application.
       path: '/',
-      name: 'Accueil',
+      name: 'Home',
       component: HomeView
     },
     {
@@ -16,13 +16,6 @@ const routes: Array<RouteRecordRaw> = [
       name: 'Score',
       component: () => import('../views/ScoreView.vue')
     },
-
-
-
-
-
-
-
     {
       // Route qui affiche le détail d'un post identifié par son id.
       // Dans la propriété path, on peut utiliser un paramètre dynamique pour capturer une partie d'une chaîne de caractères de l'url et éventuellement utiliser sa valeur dans l'application. Par exemple, dans 'path: '/user/:id', le paramètre dynamique id sera égal à la partie de l'url qui suit /user/. Donc, si l'url est /user/123, alors le paramètre id sera égal à 123.
