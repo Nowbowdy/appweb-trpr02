@@ -16,10 +16,24 @@ describe('PlayerForm.vue', () => {
         expect(player_name.text().length).toBe(0)
     })
 
-    test("À l'arrivée sur la page, le vaiseau du joueur est le Millennium Falcon", async () => {
-        const wrapper = mount(PlayerForm)
-        const select = wrapper.find('[id="player-ship-select"]');
-        expect(select.text()).toBe('Millennium Falcon');
+    it('devrait avoir Millennium Falcon comme première valeur dans le select', async () => {
+        const ships = [
+          { id: 1, name: 'Millennium Falcon', vitality: 100 },
+          { id: 2, name: 'X-wing', vitality: 100 },
+          { id: 3, name: 'TIE Fighter', vitality: 100 }
+        ];
+    
+        const wrapper = mount(PlayerForm, {
+          props: {
+            ships: ships
+          }
+        });
+        
+        const firstOption = wrapper.find('select#player-ship-select option:first-child');
+    
+        expect(firstOption.text()).toBe('Millennium Falcon');
     })
+
+    
 
 })
