@@ -19,7 +19,7 @@ const props = defineProps<{
                 <p class="card-text" >{{ props.player.ship.shipName }} - {{ props.player.score }} GC</p>
 
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" :style="{ width: props.player.ship.vitality + '%' }">
                         {{ props.player.ship.vitality }}%
                     </div>
                 </div>

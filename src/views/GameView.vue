@@ -17,11 +17,15 @@ import GameActions from '../components/GameActions.vue'
 import type Player from '../scripts/player'
 import type PlayerShip from '../scripts/playerShip'
 
+const DEFAULT_SHIP_VITALITY: number = 100;
+const DEFAULT_PLAYER_EXPERIENCE: String = "Maitre"
+
 
 let myPlayer = ref<Player>()
 let myShip: PlayerShip
-const DEFAULT_SHIP_VITALITY: number = 100;
-const DEFAULT_PLAYER_EXPERIENCE: String = "Maitre"
+
+let myEnemy = ref<Character>()
+let characterList: Character[]
 
 const props = defineProps({
   playerName: String,
@@ -36,6 +40,10 @@ const isLoading = ref(false)
 const triggerModal = ref(0)
 const router = useRouter()
 
+function getRandomCharacterAsEnemy()
+{
+  myEnemy.value = characterList[rng(0, characterList.length)]
+}
 
 function createPlayerShipObject()
 {
@@ -63,13 +71,16 @@ function createPlayerObject()
 onMounted(async () => {
   isLoading.value = true
   try {
-    const retrievedShips = await charactersService.getCharacters()
+    characterList = await charactersService.getCharacters()
 
     //Création du vaisseau du joueur (nom + vitalité)
     createPlayerShipObject()
 
     //Création du joueur (nom + xp + score + vaisseau créé en haut)
     createPlayerObject()
+
+    //Initialisation du premier ennemi en cherchant un "character" de manière random (nom + xp + score + vaisseau)
+    getRandomCharacterAsEnemy()
 
     fetchedPlayerName.value = props.playerName!
   } catch (error) {
@@ -85,10 +96,10 @@ onMounted(async () => {
 
       <GameInformations />
 
-      <div class="row mt-3" v-if="myPlayer">
+      <div class="row mt-3" v-if="myPlayer && myEnemy">
         <PlayerInformations :player="myPlayer!" />
 
-        <EnemyInformations />
+        <EnemyInformations :enemy="myEnemy" />
       </div>
       <div class="row mt-3" v-else>
         <Loading :active="isLoading" />
