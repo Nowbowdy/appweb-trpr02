@@ -12,8 +12,7 @@
                         <div class="row">
                             <button @click="$emit('continueCombat')" type="button" class="btn btn-outline-danger">Attaquer !</button>
                             <button @click="$emit('quitCombat')" type="button" class="btn btn-outline-warning">Terminer la mission...</button>
-                            <button @click="$emit('quitCombatAndHeal')" type="button" class="btn btn-outline-success">Terminer la mission et réparer le vaisseau
-                                !</button>
+                            <button @click="$emit('quitCombatAndHeal')" type="button" class="btn btn-outline-success">Terminer la mission et réparer le vaisseau !</button>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,6 @@ const props = defineProps<{
 
 
 <template>
-
     <div class="row">
         <div class="col-12">
             <div class="card text-center">
@@ -21,5 +20,4 @@ const props = defineProps<{
             </div>
         </div>
     </div>
-
 </template>

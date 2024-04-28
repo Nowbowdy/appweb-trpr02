@@ -1,17 +1,19 @@
 <!-- Ce composant est associé à la route "/about" (voir fichier src/router/index.ts). -->
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { rankingsService } from '../services/rankingsService'
-import type Ranking from '../scripts/ranking'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import { useToast } from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
+import { rankingsService } from '../services/rankingsService'
+import type Ranking from '../scripts/ranking'
+
 
 const rankings = ref([] as Ranking[])
-const isLoading = ref(false)
+const isLoading = ref<boolean>(false)
 
 const orderedRankingsList = ref([] as Ranking[])
+
 
 //Méthode tiré d'ici : https://www.w3schools.com/js/js_array_sort.asp#mark_numeric
 function orderRankingListByScore(unorderedRankingList: Ranking[]) : Ranking[]{
@@ -26,7 +28,6 @@ onMounted(async () => {
   {
     rankings.value = await rankingsService.getRankings()
     orderedRankingsList.value = orderRankingListByScore(rankings.value)
-
   } 
   catch (error) 
   {

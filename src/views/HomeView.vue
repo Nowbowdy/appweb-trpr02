@@ -8,7 +8,7 @@ import 'vue-toast-notification/dist/theme-sugar.css'
 import type Ship from '../scripts/ship'
 import PlayerForm from '../components/PlayerForm.vue'
 
-const isLoading = ref(false)
+const isLoading = ref<boolean>(false)
 const ships = ref([] as Ship[])
 
 onMounted(async () => {

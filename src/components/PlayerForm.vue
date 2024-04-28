@@ -11,9 +11,9 @@ const props = defineProps({
   ships: Array as () => Ship[]
 })
 
-const isLoading = ref(false)
-const fetchedPlayerName = ref('')
-const fetchedShipName = ref('')
+const isLoading = ref<boolean>(false)
+const fetchedPlayerName = ref<string>('')
+const fetchedShipName = ref<string>('')
 
 onMounted(async () => {
   isLoading.value = true
