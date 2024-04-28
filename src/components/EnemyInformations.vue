@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type Character from '../scripts/character'
 
-
 const props = defineProps<{
   enemy: Character
 }>();
@@ -22,28 +21,7 @@ function getExperienceString(rankingNumber: number)
           break
     }
 }
-
-/*
-      if (!this.enemyCharacter) {
-        return ''
-      }
-      switch (this.enemyCharacter.experience) {
-        case 1:
-          return 'Débutant'
-        case 2:
-          return 'Confirmé'
-        case 3:
-          return 'Expert'
-        case 4:
-          return 'Maître'
-        default:
-          break
-      }
-*/
-
 </script>
-
-
 
 <template>
 
