@@ -95,7 +95,7 @@ onBeforeRouteLeave((to, from, next) => {
 //Initialise les variables de départ de la partie
 function initialize() {
     //variable de la partie
-    gameState = POSSIBLE_GAME_STATE.IDLE;
+    gameState = POSSIBLE_GAME_STATE.PLAYING;
     enemyCount = 1;
 
     //Création et initialisation du vaisseau du joueur (nom + vitalité)
