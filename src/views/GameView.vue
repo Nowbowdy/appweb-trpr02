@@ -8,6 +8,8 @@ import 'vue-loading-overlay/dist/css/index.css'
 
 //Service
 import { charactersService } from '../services/charactersService'
+import { rankingsService } from '../services/rankingsService'
+
 
 //Composants
 import ConfirmModal from '../components/ConfirmModal.vue'
@@ -18,10 +20,11 @@ import GameActions from '../components/GameActions.vue'
 
 //Scripts et types
 import type Player from '../scripts/player'
+import type Ranking from '../scripts/ranking'
 import type PlayerShip from '../scripts/playerShip'
 import type Character from '../scripts/character'
-import type CharacterShip from '../scripts/characterShip'
 import { rng } from '../scripts/utility'
+
 
 //Constantes
 const DEFAULT_SHIP_VITALITY: number = 100;
@@ -46,11 +49,11 @@ let modalCancelButtonText: string
 let modalConfirmButtonStyle: string
 let modalCancelButtonStyle: string
 
-//Variable du joueur
+//Variables du joueur
 const myPlayer = ref<Player>()
 let myShip: PlayerShip
 
-//Variable des ennemis
+//Variables des ennemis
 const myEnemy = ref<Character>()
 let characterList: Character[]
 
@@ -59,6 +62,10 @@ const triggerModal = ref<number>(0)
 let router = useRouter()
 let nextRoute: string;
 const isLoading = ref<boolean>(false)
+
+//Variables de rangs
+let myRanking: Ranking
+let rankings: Ranking[]
 
 //Définition des props
 const props = defineProps({
@@ -71,6 +78,8 @@ onMounted(async () => {
     isLoading.value = true
     try {
         characterList = await charactersService.getCharacters()
+        rankings = await rankingsService.getRankings()
+
         initialize()
     } catch (error) {
         console.error('Erreur avec le service: ', (error as any).message)
@@ -138,22 +147,42 @@ function createPlayerObject() {
     }
 }
 
+//Fonction du rang pour le scoreboard
+function getGreatestRankingId()
+{
+  let idList = rankings.map(obj => obj.id)
+  return Math.max(...idList)
+}
+
+function createRankingObject()
+{
+  myRanking = {
+      id: getGreatestRankingId() + 1,
+      name: myPlayer.value!.name.toString(),
+      score: myPlayer.value!.score,
+  }
+}
+
+function getRankingObject()
+{
+  return myRanking
+}
+
 //Fonction de fin de partie
-function modalConfirmed() {
+async function modalConfirmed() {
     //Pour empêcher de rentrer une seconde fois dans le "if" de onBeforeRouteLeave (J'ai cherché longtemps pourquoi le route.push fonctionnait pas et c'était à cause de sa)
+
+    if(gameState === POSSIBLE_GAME_STATE.SUCCESS)
+    {
+      createRankingObject()
+      await rankingsService.addRanking(getRankingObject())
+    }
+
     gameState = POSSIBLE_GAME_STATE.IDLE;
     router.push({ name: nextRoute })   //Envoie l'utilisateur sur la page choisie
 }
 
-
-
-
-
-
-
-
-
-// Mik: Je m'excuse si c'est pas claire, je vais commenter/mettre des constantes plus tard.
+//Fonction qui donne les chances que le coup soit executé en fonction du rang
 function getHitrateBasedOnRank(exp: number) {
     switch (exp) {
         case 1: return 20;
@@ -164,6 +193,7 @@ function getHitrateBasedOnRank(exp: number) {
     }
 }
 
+//Fonctions qui changent le contenu du modal
 const changeModalForSuccessState = () => {
     gameState = POSSIBLE_GAME_STATE.SUCCESS;
     nextRoute = "Score"
@@ -205,6 +235,7 @@ const changeModalForLeavingPageEarly = () => {
     modalCancelButtonStyle = 'block'
 }
 
+//Fonction qui donne le comportement attendu en fonctione du "state" de fin de partie
 const handleEndgame = () => {
     switch(gameState){
         case POSSIBLE_GAME_STATE.SUCCESS: changeModalForSuccessState(); break;
@@ -212,8 +243,10 @@ const handleEndgame = () => {
     }
 }
 
+//Fonction qui vérifie si la partie est finie
 const isGameOver = () => gameState === POSSIBLE_GAME_STATE.SUCCESS || gameState === POSSIBLE_GAME_STATE.FAILURE;
 
+//Fonction pour attaquer l'opposant (que ce soit joueur qui attaque ennemi ou ennemi qui attaque joueur)
 const attackOpponent = (target:any, hitrate:number) => {
     if (rng(0, 100 + 1) <= hitrate) {
         target.value!.ship.vitality -= rng(3, 6 + 1)
@@ -223,11 +256,13 @@ const attackOpponent = (target:any, hitrate:number) => {
     }
 }
 
+//Fonction qui active la fin de manche en fonction de la vie des acteurs
 const handlePostGame = () => {
     if(myPlayer.value!.ship.vitality === 0) changeModalForFailureState();
     else if(myEnemy.value!.ship.vitality === 0) killedEnemySequence();
 }
 
+//Fonction lorsque l'ennemi est mort
 const killedEnemySequence = () => {
     changeModalForIdleState();
     myPlayer.value!.score += myEnemy.value!.credit;
@@ -291,7 +326,7 @@ const finishMissionAndHeal = () => {
             @onModalConfirmed="modalConfirmed()"
         />
 
-        <GameInformations :enemyCount="enemyCount" />
+        <GameInformations v-if="enemyCount" :enemyCount="enemyCount" />
 
         <div class="row mt-3" v-if="myPlayer && myEnemy">
             <!--On s'assure que les variables soient initialisées avant d'afficher les composants-->

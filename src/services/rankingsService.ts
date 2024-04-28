@@ -1,4 +1,5 @@
 import axios from 'axios'
+import type Ranking from '../scripts/ranking'
 // import { API } from '@/shared/config'
 
 // Note sur le gestion des erreurs:
@@ -17,8 +18,13 @@ async function getRanking (id : string) {
   return data
 }
 
+async function addRanking(rankingData: Ranking) {
+  const response = await axios.post(`${API_URL}/ranking`, rankingData);
+  return response.data;
+}
+
 export const rankingsService = {
     getRankings,
     getRanking,
-  
+    addRanking
 }
