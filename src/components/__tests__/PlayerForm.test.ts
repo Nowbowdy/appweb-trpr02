@@ -4,22 +4,85 @@ import PlayerForm from '../PlayerForm.vue'
 
 describe('PlayerForm.vue', () => {
 
-    it("À l'arrivée sur la page, le titre est le bon", async () => {
+    it("Le titre est le bon", async () => {
         const wrapper = mount(PlayerForm);
         const title = wrapper.find('h4');
         expect(title.text()).toBe('Votre objectif: Survivre à 5 missions en obtenant le plus de crédits galactiques.')
     })
 
-    it("À l'arrivée sur la page, le nom du joueur est vide", async () => {
+    it("Le nom du joueur est vide", async () => {
         const wrapper = mount(PlayerForm);
         const player_name = wrapper.find('[id="playerInput"]');
         expect(player_name.text().length).toBe(0)
     })
 
-    test("À l'arrivée sur la page, le vaiseau du joueur est le Millennium Falcon", async () => {
-        const wrapper = mount(PlayerForm)
-        const select = wrapper.find('[id="player-ship-select"]');
-        expect(select.text()).toBe('Millennium Falcon');
-    })
+    it('Devrait avoir Millennium Falcon comme première valeur dans le select', async () => {
+        const ships = [
+          { id: 1, name: 'Millennium Falcon', vitality: 100 },
+          { id: 2, name: 'X-wing', vitality: 100 },
+          { id: 3, name: 'TIE Fighter', vitality: 100 }
+        ];
+
+        const wrapper = mount(PlayerForm, {
+          props: {
+            ships: ships
+          }
+        });
+
+        const firstOption = wrapper.find('select#player-ship-select option:first-child');
+        expect(firstOption.text()).toBe('Millennium Falcon');
+    });
+
+    it('Si le nom du joueur est présent, le bouton pour se battre apparait.', async () => {
+        const ships = [
+          { id: 1, name: 'Millennium Falcon', vitality: 100 },
+          { id: 2, name: 'X-wing', vitality: 100 },
+          { id: 3, name: 'TIE Fighter', vitality: 100 }
+        ];
+
+        const wrapper = mount(PlayerForm, {
+          props: {
+            ships: ships
+          }
+        });
+
+        await wrapper.find('[id="playerInput"]').setValue("abc");
+        expect(wrapper.find('button').isVisible()).toBe(true); 
+    });
+
+    it('Si le nom du joueur est absent, le bouton pour se battre reste invisible.', async () => {
+        const ships = [
+          { id: 1, name: 'Millennium Falcon', vitality: 100 },
+          { id: 2, name: 'X-wing', vitality: 100 },
+          { id: 3, name: 'TIE Fighter', vitality: 100 }
+        ];
+
+        const wrapper = mount(PlayerForm, {
+          props: {
+            ships: ships
+          }
+        });
+
+        expect(wrapper.find('button').exists()).toBe(false);
+    });
+
+    it('Quand le bouton combattre est appuyé, nous sommes redirigé vers la GameView.', async () => {
+        const ships = [
+          { id: 1, name: 'Millennium Falcon', vitality: 100 },
+          { id: 2, name: 'X-wing', vitality: 100 },
+          { id: 3, name: 'TIE Fighter', vitality: 100 }
+        ];
+
+        const wrapper = mount(PlayerForm, {
+          props: {
+            ships: ships
+          }
+        });
+
+        await wrapper.find('[id="playerInput"]').setValue("abc");
+        await wrapper.find('button').trigger('click');
+
+        expect(wrapper).toBe(true);
+    });
 
 })
