@@ -1,4 +1,3 @@
-<!-- Ce composant est associé à la route "/about" (voir fichier src/router/index.ts). -->
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import Loading from 'vue-loading-overlay'
@@ -15,12 +14,11 @@ const isLoading = ref<boolean>(false)
 const orderedRankingsList = ref([] as Ranking[])
 
 
-//Méthode tiré d'ici : https://www.w3schools.com/js/js_array_sort.asp#mark_numeric
+//Fonction tiré d'ici : https://www.w3schools.com/js/js_array_sort.asp#mark_numeric
 function orderRankingListByScore(unorderedRankingList: Ranking[]) : Ranking[]{
   return (unorderedRankingList.sort(function(a, b){return a.score - b.score})).reverse();
 }
 
-//onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
 onMounted(async () => {
   isLoading.value = true
 
