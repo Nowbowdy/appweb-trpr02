@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "TP2 - Revue de Code"
   text: "Site pour la revue de code à chaque semaine."
-  tagline: Revue de la semaine 2
+  tagline: Revue de la semaine 3
   actions:
     - theme: brand
       text: Mikaël Charette
@@ -16,8 +16,8 @@ hero:
 
 features:
   - title: Mikaël Charette
-    details: Revue de code de la semaine 2
+    details: Revue de code de la semaine 3
   - title: Zachary Vandermeerschen
-    details: Revue de code de la semaine 2
+    details: Revue de code de la semaine 3
 ---
 
