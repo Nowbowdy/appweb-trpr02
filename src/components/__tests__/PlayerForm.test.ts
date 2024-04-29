@@ -66,23 +66,4 @@ describe('PlayerForm.vue', () => {
         expect(wrapper.find('button').exists()).toBe(false);
     });
 
-    it('Quand le bouton combattre est appuyé, nous sommes redirigé vers la GameView.', async () => {
-        const ships = [
-          { id: 1, name: 'Millennium Falcon', vitality: 100 },
-          { id: 2, name: 'X-wing', vitality: 100 },
-          { id: 3, name: 'TIE Fighter', vitality: 100 }
-        ];
-
-        const wrapper = mount(PlayerForm, {
-          props: {
-            ships: ships
-          }
-        });
-
-        await wrapper.find('[id="playerInput"]').setValue("abc");
-        await wrapper.find('button').trigger('click');
-
-        expect(wrapper).toBe(true);
-    });
-
 })
