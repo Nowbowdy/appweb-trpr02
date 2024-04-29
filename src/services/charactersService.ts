@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL } from './global'
+import { API_URL } from './shared/config'
 
 async function getCharacters () {
   const { data } = await axios.get(`${API_URL}/characters`)

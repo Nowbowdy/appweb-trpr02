@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type Ranking from '../scripts/ranking'
-import { API_URL } from './global'
+import { API_URL } from './shared/config'
 
 async function getRankings () {
   const { data } = await axios.get(`${API_URL}/ranking`)
